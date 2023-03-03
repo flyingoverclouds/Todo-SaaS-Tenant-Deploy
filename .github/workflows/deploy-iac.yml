@@ -113,7 +113,10 @@ jobs:
             --query properties.configuration.ingress.fqdn \
             --output tsv`
 
+          echo "URLFRONT=" $URLFRONT
+
           if curl -s --request GET https://$URLFRONT | grep "Mes Toudoux" > /dev/null; then 
+             echo "Send message :" ${{ toJSON(github.event.action) }}#https://$URLFRONT
              az storage message put \
                --queue-name deploy-workflow-status \
                --content ${{ toJSON(github.event.action) }}#https://$URLFRONT \
