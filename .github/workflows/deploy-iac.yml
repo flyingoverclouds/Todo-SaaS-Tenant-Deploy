@@ -119,7 +119,7 @@ jobs:
              echo "Send message : ${{ toJSON(github.event.action) }}#https://$URLFRONT"
              az storage message put \
                --queue-name deploy-workflow-status \
-               --content "`echo "${{ toJSON(github.event.action) }}#https://$URLFRONT" | base64`" \
+               --content "`echo -n "${{ toJSON(github.event.action) }}#https://$URLFRONT" | base64`" \
                --time-to-live 86400 \
                --account-name todosaastenantdb \
                --sas-token "${{ secrets.QUEUETOKEN }}"
